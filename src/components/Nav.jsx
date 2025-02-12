@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { FilterIcon, SearchIcon } from '../icons/MenuIcons'
 
 export default function Nav() {
@@ -5,9 +6,9 @@ export default function Nav() {
     <nav className='border h-[100px]'>
       <ul className='flex items-center justify-between h-full px-6'>
         <li className='flex items-center gap-20 ml-6'>
-          <a href='/' className='font-bold text-3xl text-[#3563E9]'>
+          <Link to={'/'} className='font-bold text-3xl text-[#3563E9]'>
             MORENT
-          </a>
+          </Link>
           <div className='flex items-center font-light gap-4 text-gray-600 border border-gray-400 border-opacity-25 rounded-full px-4 py-2 w-[400px]'>
             <button>
               <SearchIcon />
