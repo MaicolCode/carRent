@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import CardCarPresentation from '../components/CardCar'
 import { ArrowRight, Arrows } from '../icons/MenuIcons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function HomePage() {
   return (
@@ -94,7 +94,7 @@ function CardAgend({ title, primary, secondary }) {
       <section className='flex gap-3 mt-4'>
         <div className='flex flex-col gap-2'>
           <h3 className='font-bold text-sm'>Locations</h3>
-          <button className='flex w-[110px] justify-between border p-0'>
+          <button className='flex w-[110px] justify-between p-0'>
             <span className='text-xs text-gray-400'>Select your city</span>
             <ArrowRight />
           </button>
@@ -120,9 +120,13 @@ function CardAgend({ title, primary, secondary }) {
 
 function PopularCars() {
   const [cars, setCars] = useState([])
+  const navigate = useNavigate()
+  const handleClick = (id) => {
+    navigate(`car/${id}`, { state: { car: cars.find((car) => car.id === id) } })
+  }
 
   useEffect(() => {
-    fetch('http://localhost:3000/cars')
+    fetch('https://morent-website.vercel.app/api/cars')
       .then((res) => res.json())
       .then((data) => setCars(data))
   }, [])
@@ -131,8 +135,12 @@ function PopularCars() {
     <div className='grid grid-cols-4 gap-10 mt-7 mb-10'>
       {cars.map((car) => {
         {
-          return car.popularity > 5 ? (
-            <CardCarPresentation key={car._id} car={car} />
+          return car.popular_car ? (
+            <CardCarPresentation
+              key={car.id}
+              car={car}
+              actionClick={handleClick}
+            />
           ) : null
         }
       })}
@@ -142,9 +150,13 @@ function PopularCars() {
 
 function RecomendationCar() {
   const [cars, setCars] = useState([])
+  const navigate = useNavigate()
+  const handleClick = (id) => {
+    navigate(`car/${id}`, { state: { car: cars.find((car) => car.id === id) } })
+  }
 
   useEffect(() => {
-    fetch('http://localhost:3000/cars')
+    fetch('https://morent-website.vercel.app/api/cars')
       .then((res) => res.json())
       .then((data) => setCars(data))
   }, [])
@@ -152,7 +164,13 @@ function RecomendationCar() {
   return (
     <div className='grid grid-cols-4 gap-10 mt-7 mb-10'>
       {cars.map((car) => {
-        return <CardCarPresentation key={car._id} car={car} />
+        return (
+          <CardCarPresentation
+            key={car.id}
+            car={car}
+            actionClick={handleClick}
+          />
+        )
       })}
     </div>
   )
