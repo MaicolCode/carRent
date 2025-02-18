@@ -1,18 +1,30 @@
 import { useEffect, useState } from 'react'
 import CardCarPresentation from '../components/CardCar'
 import { ArrowRight, Arrows } from '../icons/MenuIcons'
-
-const typeCars = ['Sport', 'SUV', 'MVP', 'Sedan', 'Coupe', 'Hatchback']
-const capacityCars = ['2 People', '4 People', '6 People', '8 People']
+import { useNavigate } from 'react-router-dom'
 
 export default function AllCarsPage() {
   const [cars, setCars] = useState([])
+  const navigate = useNavigate()
+  const handleClick = (id) => {
+    navigate(`car/${id}`, { state: { car: cars.find((car) => car.id === id) } })
+  }
 
   useEffect(() => {
-    fetch('http://localhost:3000/cars')
+    fetch('https://morent-website.vercel.app/api/cars')
       .then((res) => res.json())
       .then((data) => setCars(data))
   }, [])
+
+  const categories = cars.map((car) => car.category)
+  const capacity = cars.map((car) => car.capacity)
+
+  const typeCars = categories.filter(
+    (item, index) => categories.indexOf(item) === index
+  )
+  const capacityCars = capacity.filter(
+    (item, index) => capacity.indexOf(item) === index
+  )
 
   return (
     <section className='bg-gray-100 flex'>
@@ -80,7 +92,13 @@ export default function AllCarsPage() {
         </section>
         <section className='grid grid-cols-3 gap-6 mt-10 mb-10'>
           {cars.map((car) => {
-            return <CardCarPresentation key={car._id} car={car} />
+            return (
+              <CardCarPresentation
+                key={car.id}
+                car={car}
+                actionClick={handleClick}
+              />
+            )
           })}
         </section>
       </section>
