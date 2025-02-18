@@ -3,6 +3,8 @@ import Footer from './components/Footer'
 import Nav from './components/Nav'
 import HomePage from './pages/HomePage'
 import AllCarsPage from './pages/AllCarsPage'
+import InformationCarPage from './pages/InformationCarPage'
+import RentCarPage from './pages/RentCarPage'
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
       <Routes>
         <Route index element={<HomePage />} />
         <Route path='/all-cars' element={<AllCarsPage />} />
+        <Route path='/car/:id' element={<InformationCarPage />} />
+        <Route path='/rent-car' element={<RentCarPage />} />
       </Routes>
       <div>
         <Outlet />
