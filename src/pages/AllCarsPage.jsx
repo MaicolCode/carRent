@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react'
 import CardCarPresentation from '../components/CardCar'
 import { ArrowRight, Arrows } from '../icons/MenuIcons'
-import { useNavigate } from 'react-router-dom'
+import { Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 
 export default function AllCarsPage() {
   const [cars, setCars] = useState([])
-  const navigate = useNavigate()
-  const handleClick = (id) => {
-    navigate(`car/${id}`, { state: { car: cars.find((car) => car.id === id) } })
-  }
 
   useEffect(() => {
     fetch('https://morent-website.vercel.app/api/cars')
@@ -82,25 +78,40 @@ export default function AllCarsPage() {
           </div>
         </div>
       </section>
-      <section className='w-[75%] p-8'>
-        <section className='relative flex justify-between items-center gap-10 w-full'>
-          <CardAgend title='Pick - Up' primary='#3563E9' secondary='#3563E9' />
-          <button className='absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[#3563E9] w-[55px] h-[55px] flex justify-center items-center rounded-lg hover:bg-opacity-90 transition-all duration-500 ease-in-out shadow-slate-400 shadow-[0_0_10px_2px]'>
-            <Arrows />
-          </button>
-          <CardAgend title='Drop - Off' primary='#54A6FF' secondary='#54A6FF' />
-        </section>
-        <section className='grid grid-cols-3 gap-6 mt-10 mb-10'>
-          {cars.map((car) => {
-            return (
-              <CardCarPresentation
-                key={car.id}
-                car={car}
-                actionClick={handleClick}
-              />
-            )
-          })}
-        </section>
+      <Routes>
+        <Route index element={<AllCars cars={cars} />} />
+      </Routes>
+      <Outlet />
+    </section>
+  )
+}
+
+function AllCars({ cars }) {
+  const navigate = useNavigate()
+  const handleClick = (id) => {
+    navigate(`${id}`, {
+      state: { car: cars.find((car) => car.id === id) }
+    })
+  }
+  return (
+    <section className='w-[75%] p-8'>
+      <section className='relative flex justify-between items-center gap-10 w-full'>
+        <CardAgend title='Pick - Up' primary='#3563E9' secondary='#3563E9' />
+        <button className='absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[#3563E9] w-[55px] h-[55px] flex justify-center items-center rounded-lg hover:bg-opacity-90 transition-all duration-500 ease-in-out shadow-slate-400 shadow-[0_0_10px_2px]'>
+          <Arrows />
+        </button>
+        <CardAgend title='Drop - Off' primary='#54A6FF' secondary='#54A6FF' />
+      </section>
+      <section className='grid grid-cols-3 gap-6 mt-10 mb-10'>
+        {cars.map((car) => {
+          return (
+            <CardCarPresentation
+              key={car.id}
+              car={car}
+              actionClick={handleClick}
+            />
+          )
+        })}
       </section>
     </section>
   )
@@ -172,3 +183,5 @@ function ModifiedCheckBox() {
     </label>
   )
 }
+
+/* ;<Route path='/rent-car' element={<RentCarPage />} /> */
