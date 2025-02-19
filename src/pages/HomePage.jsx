@@ -15,12 +15,12 @@ export default function HomePage() {
             Ease of doing a car rental safely and reliably. Of course at a low
             price.
           </p>
-          <a
-            href=''
+          <Link
+            to={'/cars'}
             className='bg-[#3563E9] text-white text-sm mt-4 flex justify-center items-center rounded-[5px] w-[110px] h-[40px] hover:bg-opacity-90 transition-all'
           >
             Rental Car
-          </a>
+          </Link>
           <img
             src='/cars/car-010.svg'
             alt=''
@@ -36,12 +36,12 @@ export default function HomePage() {
             Providing cheap car rental services and safe and comfortable
             facilities.
           </p>
-          <a
-            href=''
+          <Link
+            to={'/cars'}
             className='bg-[#54A6FF] text-white text-sm mt-4 flex justify-center items-center rounded-[5px] w-[110px] h-[40px] hover:bg-opacity-90 transition-all'
           >
             Rental Car
-          </a>
+          </Link>
           <img
             src='/cars/car-020.svg'
             alt=''
@@ -62,7 +62,7 @@ export default function HomePage() {
           <a href='' className='text-slate-400'>
             Popular Car
           </a>
-          <Link to={'/all-cars'} className='text-[#3563E9]'>
+          <Link to={'/cars'} className='text-[#3563E9]'>
             View All
           </Link>
         </div>
@@ -122,7 +122,9 @@ function PopularCars() {
   const [cars, setCars] = useState([])
   const navigate = useNavigate()
   const handleClick = (id) => {
-    navigate(`car/${id}`, { state: { car: cars.find((car) => car.id === id) } })
+    navigate(`cars/${id}`, {
+      state: { car: cars.find((car) => car.id === id) }
+    })
   }
 
   useEffect(() => {
@@ -152,7 +154,9 @@ function RecomendationCar() {
   const [cars, setCars] = useState([])
   const navigate = useNavigate()
   const handleClick = (id) => {
-    navigate(`car/${id}`, { state: { car: cars.find((car) => car.id === id) } })
+    navigate(`cars/${id}`, {
+      state: { car: cars.find((car) => car.id === id) }
+    })
   }
 
   useEffect(() => {
