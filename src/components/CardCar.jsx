@@ -72,7 +72,7 @@ export default function CardCarPresentation({ car, actionClick }) {
           onClick={(e) => {
             e.stopPropagation()
           }}
-          to={`rent-car`}
+          to={`/rent-car`}
           state={{ car }}
           className='bg-[#3563E9] text-white text-sm  flex justify-center items-center rounded-[5px] w-[110px] h-[40px] hover:bg-opacity-90 transition-all'
         >
