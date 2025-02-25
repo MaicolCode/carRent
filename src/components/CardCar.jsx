@@ -1,19 +1,8 @@
-import { useState } from 'react'
-import {
-  GasStation,
-  Like,
-  LikePinted,
-  SteeringWheel,
-  TwoUsers
-} from '../icons/CardCars'
+import { GasStation, SteeringWheel, TwoUsers } from '../icons/CardCars'
 import { Link } from 'react-router-dom'
+import { Liked } from './Liked'
 
 export default function CardCarPresentation({ car, actionClick }) {
-  const [liked, setLiked] = useState(true)
-  const handleLike = () => {
-    setLiked(!liked)
-  }
-
   return (
     <section
       onClick={() => {
@@ -29,15 +18,7 @@ export default function CardCarPresentation({ car, actionClick }) {
             {car.category}
           </span>
         </div>
-        <span
-          onClick={(e) => {
-            e.stopPropagation()
-            handleLike()
-          }}
-          className='flex justify-center items-center h-[20px] w-[20px] '
-        >
-          {liked ? <Like /> : <LikePinted />}
-        </span>
+        <Liked />
       </div>
 
       <div className='relative flex justify-center items-center h-[190px]'>
