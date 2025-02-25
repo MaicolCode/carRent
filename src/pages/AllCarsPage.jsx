@@ -6,11 +6,19 @@ import { Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 export default function AllCarsPage() {
   const [cars, setCars] = useState([])
 
+  // Estados para cada uno de los filtros
+  const [filterCategory, setFilterCategory] = useState([])
+  const [filterCapacity, setFilterCapacity] = useState([])
+  const [filterPrice, setFilterPrice] = useState(100)
+
   useEffect(() => {
     fetch('https://morent-website.vercel.app/api/cars')
       .then((res) => res.json())
       .then((data) => setCars(data))
+    console.log('peticion')
   }, [])
+
+  // Obtencion de las categorías y capacidades de los coches
 
   const categories = cars.map((car) => car.category)
   const capacity = cars.map((car) => car.capacity)
@@ -21,6 +29,45 @@ export default function AllCarsPage() {
   const capacityCars = capacity.filter(
     (item, index) => capacity.indexOf(item) === index
   )
+
+  // Filtro de los coches por categoría y capacidad
+
+  const filterCars = cars.filter((car) => {
+    return (
+      filterPrice >= car.price &&
+      (filterCategory.length === 0 || filterCategory.includes(car.category))
+    )
+  })
+
+  const filterCarsCapacity = filterCars.filter((car) => {
+    return filterCapacity.includes(car.capacity)
+  })
+
+  // Controladores de eventos para los filtros
+
+  const handleFilterCategory = (e) => {
+    const filterName = e.target.name ? e.target.name : 'all'
+
+    if (filterCategory.includes(filterName)) {
+      setFilterCategory(filterCategory.filter((item) => item !== filterName))
+    } else {
+      setFilterCategory((prevState) => [...prevState, filterName])
+    }
+  }
+
+  const handleFilterCapacity = (e) => {
+    const filterName = e.target.name ? e.target.name : 'all'
+
+    if (filterCapacity.includes(filterName)) {
+      setFilterCapacity(filterCapacity.filter((item) => item !== filterName))
+    } else {
+      setFilterCapacity((prevState) => [...prevState, filterName])
+    }
+  }
+
+  const handleFilterPrice = (e) => {
+    setFilterPrice(e.target.value)
+  }
 
   return (
     <section className='bg-gray-100 flex'>
@@ -33,7 +80,10 @@ export default function AllCarsPage() {
             return (
               <div key={typeCar} className='flex gap-2'>
                 {' '}
-                <ModifiedCheckBox />
+                <ModifiedCheckBox
+                  name={typeCar}
+                  handleFilter={handleFilterCategory}
+                />
                 <label
                   className='text-slate-600 font-semibold
                  text-lg'
@@ -52,7 +102,10 @@ export default function AllCarsPage() {
             return (
               <div key={capacityCar} className='flex gap-2'>
                 {' '}
-                <ModifiedCheckBox />
+                <ModifiedCheckBox
+                  name={capacityCar}
+                  handleFilter={handleFilterCapacity}
+                />
                 <label
                   className='text-slate-600 font-semibold
                  text-lg'
@@ -68,18 +121,31 @@ export default function AllCarsPage() {
             PRICE
           </span>
           <div className='flex flex-col gap-2'>
-            <input type='range' name='' id='' />
+            <input
+              type='range'
+              min={0}
+              max={100}
+              value={filterPrice}
+              onChange={handleFilterPrice}
+            />
             <label
               className='text-slate-600 font-semibold
              text-lg'
             >
-              Max. $100.00
+              Max. ${filterPrice}.00
             </label>
           </div>
         </div>
       </section>
       <Routes>
-        <Route index element={<AllCars cars={cars} />} />
+        <Route
+          index
+          element={
+            <AllCars
+              cars={filterCapacity.length > 0 ? filterCarsCapacity : filterCars}
+            />
+          }
+        />
       </Routes>
       <Outlet />
     </section>
@@ -102,17 +168,23 @@ function AllCars({ cars }) {
         </button>
         <CardAgend title='Drop - Off' primary='#54A6FF' secondary='#54A6FF' />
       </section>
-      <section className='grid grid-cols-3 gap-6 mt-10 mb-10'>
-        {cars.map((car) => {
-          return (
-            <CardCarPresentation
-              key={car.id}
-              car={car}
-              actionClick={handleClick}
-            />
-          )
-        })}
-      </section>
+      {cars.length > 0 ? (
+        <section className='grid grid-cols-3 gap-6 mt-10 mb-10'>
+          {cars.map((car) => {
+            return (
+              <CardCarPresentation
+                key={car.id}
+                car={car}
+                actionClick={handleClick}
+              />
+            )
+          })}
+        </section>
+      ) : (
+        <section className='flex justify-center items-center mt-20'>
+          <h1>No hay coches disponibles...</h1>
+        </section>
+      )}
     </section>
   )
 }
@@ -157,12 +229,14 @@ function CardAgend({ title, primary, secondary }) {
   )
 }
 
-function ModifiedCheckBox() {
+function ModifiedCheckBox({ name, handleFilter }) {
   return (
     <label className='relative flex cursor-pointer items-center'>
       <input
         type='checkbox'
+        name={name}
         className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-slate-400 transition-all checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
+        onClick={handleFilter}
       />
       <div className='pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100'>
         <svg
