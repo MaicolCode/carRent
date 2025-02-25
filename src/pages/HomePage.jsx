@@ -59,18 +59,18 @@ export default function HomePage() {
       </section>
       <section className='pb-10 px-8'>
         <div className='flex justify-between items-center gap-7 px-6 text-sm font-medium'>
-          <a href='' className='text-slate-400'>
+          <span href='' className='text-slate-400'>
             Popular Car
-          </a>
+          </span>
           <Link to={'/cars'} className='text-[#3563E9]'>
             View All
           </Link>
         </div>
         <PopularCars />
         <div className='flex justify-between items-center gap-7 px-6 text-sm font-medium'>
-          <a href='' className='text-slate-400'>
+          <span href='' className='text-slate-400'>
             Recomendation Car
-          </a>
+          </span>
         </div>
         <RecomendationCar />
       </section>
