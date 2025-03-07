@@ -12,6 +12,10 @@ export default function InformationCarPage() {
   const { id } = useParams()
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
     if (!car) {
       fetch('https://morent-website.vercel.app/api/cars')
         .then((res) => res.json())
@@ -25,7 +29,7 @@ export default function InformationCarPage() {
   const arr = Array.from({ length: 5 })
 
   const layers = arr.map((_, index) => {
-    return index <= car.stars_count ? (
+    return index <= car?.stars_count ? (
       <PaintedLayer key={index} />
     ) : (
       <Layer key={index} />
