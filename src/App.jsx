@@ -5,18 +5,21 @@ import HomePage from './pages/HomePage'
 import AllCarsPage from './pages/AllCarsPage'
 import RentCarPage from './pages/RentCarPage'
 import InformationCarPage from './pages/InformationCarPage'
+import { CarProvider } from './contexts/contextCar'
 
 function App() {
   return (
     <main>
       <Nav />
-      <Routes>
-        <Route index element={<HomePage />} />
-        <Route path='/cars/*' element={<AllCarsPage />}>
-          <Route path=':id' element={<InformationCarPage />} />
-        </Route>
-        <Route path='/rent-car' element={<RentCarPage />} />
-      </Routes>
+      <CarProvider>
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route path='/cars/*' element={<AllCarsPage />}>
+            <Route path=':id' element={<InformationCarPage />} />
+          </Route>
+          <Route path='/rent-car' element={<RentCarPage />} />
+        </Routes>
+      </CarProvider>
       <div>
         <Outlet />
       </div>
