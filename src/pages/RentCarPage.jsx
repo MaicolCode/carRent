@@ -1,6 +1,13 @@
 import { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Layer, PaintedLayer } from '../icons/CardCars'
+import {
+  BitCoin,
+  Paypal,
+  SecurePayment,
+  VisaMasterCard
+} from '../icons/PaymentMethods'
+import { ModifiedCheckBox } from '../components/ModifiedCheckBox'
 
 export default function RentCarPage() {
   const location = useLocation()
@@ -8,12 +15,16 @@ export default function RentCarPage() {
   const { car } = location.state || {}
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
     if (!car) navigate('/cars')
   }, [car, navigate])
 
   const arr = Array.from({ length: 5 })
   const layers = arr.map((_, index) => {
-    return index <= car.stars_count ? (
+    return index <= car?.stars_count ? (
       <PaintedLayer key={index} />
     ) : (
       <Layer key={index} />
@@ -22,7 +33,7 @@ export default function RentCarPage() {
 
   return (
     <section className='w-full h-full p-8 flex gap-7 border bg-gray-100 bg-opacity-60'>
-      <section className='w-full flex flex-col gap-7'>
+      <form className='w-full flex flex-col gap-7'>
         <article className='bg-white p-6 rounded-md text-xs text-slate-400'>
           <div className='w-full'>
             <span className='text-lg font-bold text-black'>Billing Info</span>
@@ -171,9 +182,154 @@ export default function RentCarPage() {
             </div>
           </div>
         </article>
-        <article></article>
-        <article></article>
-      </section>
+        <article className='bg-white p-6 rounded-md text-xs text-slate-400'>
+          <div className='w-full'>
+            <span className='text-lg font-bold text-black'>Payment Method</span>
+            <div className='flex justify-between items-center'>
+              <p>Please enter your payment method</p>
+              <span>Step 3 of 4</span>
+            </div>
+          </div>
+          <div className='flex flex-col gap-5 bg-gray-100 bg-opacity-50 rounded-lg p-4 mt-5'>
+            <div className='flex justify-between items-center'>
+              <div className='flex items-center gap-3'>
+                <span
+                  className={`w-[15px] h-[15px] rounded-full bg-[#3563E9] bg-opacity-40 flex justify-center items-center animate-pulse`}
+                >
+                  <span
+                    className={`w-[7px] h-[7px] rounded-full bg-[#3563E9] `}
+                  ></span>
+                </span>
+                <h2 className='font-medium text-sm'>Credit Card</h2>
+              </div>
+              <VisaMasterCard />
+            </div>
+            <div className='grid grid-cols-2 gap-7 mt-5'>
+              <div className='flex flex-col gap-3'>
+                <label htmlFor='' className='font-bold text-black text-sm'>
+                  Card Number
+                </label>
+                <input
+                  type='text'
+                  placeholder='Card Number'
+                  className='w-full p-4 rounded-md bg-white '
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <label htmlFor='' className='font-bold text-black text-sm'>
+                  Expiration Date
+                </label>
+                <input
+                  type='text'
+                  placeholder='Select your time'
+                  className='w-full p-4 rounded-md bg-white '
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <label htmlFor='' className='font-bold text-black text-sm'>
+                  Card Holder
+                </label>
+                <input
+                  type='text'
+                  placeholder='Credit Holder'
+                  className='w-full p-4 rounded-md bg-white '
+                />
+              </div>
+              <div className='flex flex-col gap-3'>
+                <label htmlFor='' className='font-bold text-black text-sm'>
+                  CVC
+                </label>
+                <input
+                  type='text'
+                  placeholder='CVC'
+                  className='w-full p-4 rounded-md bg-white'
+                />
+              </div>
+            </div>
+          </div>
+          <div className='flex justify-between items-center bg-gray-100 bg-opacity-50 rounded-lg p-4 mt-5'>
+            <div className='flex gap-2 items-center'>
+              <input
+                type='radio'
+                name='payment'
+                id='paypal'
+                className='w-4 h-4 text-[#3563E9] bg-black'
+              />
+              <label htmlFor='paypal'>Paypal</label>
+            </div>
+            <Paypal />
+          </div>
+          <div className='flex justify-between items-center bg-gray-100 bg-opacity-50 rounded-lg p-4 mt-5'>
+            <div className='flex gap-2 justify-center items-center'>
+              <input
+                type='radio'
+                name='payment'
+                id='bitcoin'
+                className='w-4 h-4'
+              />
+              <label htmlFor='bitcoin'>Bitcoin</label>
+            </div>
+            <BitCoin />
+          </div>
+        </article>
+        <article className='bg-white p-6 rounded-md text-xs text-slate-400'>
+          <div className='w-full'>
+            <span className='text-lg font-bold text-black'>Confirmation</span>
+            <div className='flex justify-between items-center'>
+              <p>
+                We are getting to the end. Just few clicks and your rental is
+                ready!
+              </p>
+              <span>Step 4 of 4</span>
+            </div>
+          </div>
+          <div className='flex items-center bg-gray-100 bg-opacity-50 rounded-lg p-4 mt-5'>
+            <div className='flex gap-5 justify-center items-center'>
+              <ModifiedCheckBox
+                name='newsletters'
+                handleFilter={() => console.log()}
+              />
+              <label
+                htmlFor='newsletters'
+                className='text-sm text-black font-semibold'
+              >
+                I agree with sending an Marketing and newsletter emails. No
+                spam, promissed!
+              </label>
+            </div>
+          </div>
+          <div className='flex items-center bg-gray-100 bg-opacity-50 rounded-lg p-4 mt-5'>
+            <div className='flex gap-5 justify-center items-center'>
+              <ModifiedCheckBox
+                name='terms'
+                handleFilter={() => console.log()}
+              />
+              <label
+                htmlFor='terms'
+                className='text-sm text-black font-semibold'
+              >
+                I agree with our terms and conditions and privacy policy.
+              </label>
+            </div>
+          </div>
+          <button
+            type='submit'
+            className='bg-[#3563E9] text-white text-sm my-5 font-medium  flex justify-center items-center rounded-[5px] w-[130px] h-[50px] hover:bg-opacity-90 transition-all'
+          >
+            Rent Now
+          </button>
+          <div className='flex flex-col gap-2'>
+            <SecurePayment />
+            <span className='text-sm text-black font-semibold'>
+              All your data are safe
+            </span>
+            <span>
+              We are using the most advanced security to provide you the best
+              experience ever.
+            </span>
+          </div>
+        </article>
+      </form>
       <InfoCarRent car={car} layers={layers} />
     </section>
   )
@@ -192,23 +348,23 @@ export function InfoCarRent({ car, layers }) {
       <aside className='flex gap-4 items-center mt-4'>
         <div className='w-[130px] h-[100px] rounded-lg bg-[#3563E9] flex justify-center items-center'>
           <img
-            src={`https://morent-website.vercel.app/${car.image}`}
+            src={`https://morent-website.vercel.app/${car?.image}`}
             width={110}
-            alt={car.name}
+            alt={car?.name}
           />
         </div>
         <div className='flex flex-col gap-3'>
-          <h2 className='text-3xl font-bold text-black'>{car.name}</h2>
+          <h2 className='text-3xl font-bold text-black'>{car?.name}</h2>
           <div className='flex gap-2 items-center'>
             <div className='flex gap-1'>{layers}</div>
-            <span className='text-xs'>{car.reviews}+Reviewer</span>
+            <span className='text-xs'>{car?.reviews}+Reviewer</span>
           </div>
         </div>
       </aside>
       <hr className='my-2 border-slate-100' />
       <aside className='flex gap-2 justify-between items-center'>
         <span>Subtotal</span>
-        <span className='font-semibold text-black'>$ {car.price}.00</span>
+        <span className='font-semibold text-black'>$ {car?.price}.00</span>
       </aside>
       <aside className='flex gap-2 justify-between items-center'>
         <span>Tax</span>
@@ -226,7 +382,7 @@ export function InfoCarRent({ car, layers }) {
           </p>
         </div>
         <strong className='text-3xl font-semibold text-black'>
-          ${car.price}.00
+          ${car?.price}.00
         </strong>
       </div>
     </section>
