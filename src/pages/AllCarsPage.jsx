@@ -1,33 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Outlet, Route, Routes } from 'react-router-dom'
-import { ModifiedCheckBox } from '../components/ModifiedCheckBox'
 import { AllCars } from '../components/AllCars'
 import { useCar } from '../hooks/useCar'
+import { useFilter } from '../hooks/useFilter'
+import { FilterType } from '../components/FilterType'
+import { FilterCapacity } from '../components/FilterCapacity'
+import { FilterPrice } from '../components/FilterPrice'
 
 export default function AllCarsPage() {
   const { cars, typeCars, capacityCars } = useCar()
-
-  // Estados para cada uno de los filtros
-  const [filterCategory, setFilterCategory] = useState([])
-  const [filterCapacity, setFilterCapacity] = useState([])
-  const [filterPrice, setFilterPrice] = useState(100)
+  const {
+    filterCars,
+    filterCarsCapacity,
+    filterCategory,
+    setFilterCategory,
+    filterCapacity,
+    setFilterCapacity,
+    filterPrice,
+    setFilterPrice
+  } = useFilter(cars)
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-
-  // Filtro de los coches por categoría y capacidad
-
-  const filterCars = cars.filter((car) => {
-    return (
-      filterPrice >= car.price &&
-      (filterCategory.length === 0 || filterCategory.includes(car.category))
-    )
-  })
-
-  const filterCarsCapacity = filterCars.filter((car) => {
-    return filterCapacity.includes(car.capacity)
-  })
 
   // Controladores de eventos para los filtros
 
@@ -58,70 +53,18 @@ export default function AllCarsPage() {
   return (
     <section className='bg-gray-100 flex'>
       <section className='bg-white w-[25%] px-5 py-7 flex flex-col gap-10'>
-        <div className='flex flex-col gap-5'>
-          <span className='text-[10px] tracking-[2px] text-slate-400 font-medium'>
-            TYPE
-          </span>
-          {typeCars.map((typeCar) => {
-            return (
-              <div key={typeCar} className='flex gap-2'>
-                {' '}
-                <ModifiedCheckBox
-                  name={typeCar}
-                  handleFilter={handleFilterCategory}
-                />
-                <label
-                  className='text-slate-600 font-semibold
-                 text-lg'
-                >
-                  {typeCar}
-                </label>
-              </div>
-            )
-          })}
-        </div>
-        <div className='flex flex-col gap-5'>
-          <span className='text-[10px] tracking-[2px] text-slate-400 font-medium'>
-            CAPACITY
-          </span>
-          {capacityCars.map((capacityCar) => {
-            return (
-              <div key={capacityCar} className='flex gap-2'>
-                {' '}
-                <ModifiedCheckBox
-                  name={capacityCar}
-                  handleFilter={handleFilterCapacity}
-                />
-                <label
-                  className='text-slate-600 font-semibold
-                 text-lg'
-                >
-                  {capacityCar}
-                </label>
-              </div>
-            )
-          })}
-        </div>
-        <div className='flex flex-col gap-5'>
-          <span className='text-[10px] tracking-[2px] text-slate-400 font-medium'>
-            PRICE
-          </span>
-          <div className='flex flex-col gap-2'>
-            <input
-              type='range'
-              min={0}
-              max={100}
-              value={filterPrice}
-              onChange={handleFilterPrice}
-            />
-            <label
-              className='text-slate-600 font-semibold
-             text-lg'
-            >
-              Max. ${filterPrice}.00
-            </label>
-          </div>
-        </div>
+        <FilterType
+          data={typeCars}
+          actionFilterCategory={handleFilterCategory}
+        />
+        <FilterCapacity
+          data={capacityCars}
+          actionFilterCapacity={handleFilterCapacity}
+        />
+        <FilterPrice
+          price={filterPrice}
+          actionFilterPrice={handleFilterPrice}
+        />
       </section>
       <Routes>
         <Route
