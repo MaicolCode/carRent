@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 
-const FilterContext = createContext()
+export const FilterContext = createContext()
 
 export function FilterProvider({ children }) {
   // Estados para cada uno de los filtros
