@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Liked } from './Liked'
 
 export function CarInfo({ car, layers }) {
@@ -84,9 +85,13 @@ export function CarInfo({ car, layers }) {
               <span className='line-through'>${car.discount}.00</span>
             ) : null}
           </div>
-          <button className='bg-[#3563E9] text-white text-sm font-medium  flex justify-center items-center rounded-[5px] w-[130px] h-[50px] hover:bg-opacity-90 transition-all'>
+          <Link
+            to={`/rent-car`}
+            state={{ car }}
+            className='bg-[#3563E9] text-white text-sm font-medium  flex justify-center items-center rounded-[5px] w-[130px] h-[50px] hover:bg-opacity-90 transition-all'
+          >
             Rent Now
-          </button>
+          </Link>
         </div>
       </article>
     </section>
