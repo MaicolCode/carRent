@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage'
 import AllCarsPage from './pages/AllCarsPage'
 import RentCarPage from './pages/RentCarPage'
 import InformationCarPage from './pages/InformationCarPage'
-import { CarProvider } from './contexts/contextCar'
+import { CarProvider } from './contexts/car'
 
 function App() {
   return (
