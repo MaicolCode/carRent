@@ -1,13 +1,14 @@
 import { Outlet, Route, Routes } from 'react-router-dom'
 import Footer from './components/Footer'
 import Nav from './components/Nav'
-import HomePage from './pages/HomePage'
-import AllCarsPage from './pages/AllCarsPage'
-import RentCarPage from './pages/RentCarPage'
-import InformationCarPage from './pages/InformationCarPage'
 import { CarProvider } from './contexts/car'
 import { FilterProvider } from './contexts/filter'
+import { lazy } from 'react'
 
+const HomePage = lazy(() => import('./pages/HomePage'))
+const AllCarsPage = lazy(() => import('./pages/AllCarsPage'))
+const RentCarPage = lazy(() => import('./pages/RentCarPage'))
+const InformationCarPage = lazy(() => import('./pages/InformationCarPage'))
 function App() {
   return (
     <main>
