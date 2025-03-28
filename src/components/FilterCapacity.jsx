@@ -1,6 +1,6 @@
 import { ModifiedCheckBox } from './ModifiedCheckBox'
 
-export function FilterCapacity({ data, actionFilterCapacity }) {
+export default function FilterCapacity({ data, actionFilterCapacity }) {
   return (
     <div className='flex flex-col gap-5'>
       <span className='text-[10px] tracking-[2px] text-slate-400 font-medium'>
