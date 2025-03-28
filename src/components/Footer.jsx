@@ -1,4 +1,7 @@
-export default function Footer() {
+import { memo } from 'react'
+
+// eslint-disable-next-line react/display-name
+const Footer = memo(() => {
   return (
     <footer className='p-16'>
       <section className='flex justify-between py-14'>
@@ -75,4 +78,6 @@ export default function Footer() {
       </section>
     </footer>
   )
-}
+})
+
+export default Footer
