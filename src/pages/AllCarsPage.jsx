@@ -1,17 +1,17 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo } from 'react'
 import { Outlet, Route, Routes } from 'react-router-dom'
-import { AllCars } from '../components/AllCars'
+
 import { useCar } from '../hooks/useCar'
 import { useFilter } from '../hooks/useFilter'
-import { FilterType } from '../components/FilterType'
-import { FilterCapacity } from '../components/FilterCapacity'
-import { FilterPrice } from '../components/FilterPrice'
+
+const AllCars = lazy(() => import('../components/AllCars'))
+const FilterType = lazy(() => import('../components/FilterType'))
+const FilterCapacity = lazy(() => import('../components/FilterCapacity'))
+const FilterPrice = lazy(() => import('../components/FilterPrice'))
 
 export default function AllCarsPage() {
   const { cars, typeCars, capacityCars } = useCar()
   const {
-    filterCars,
-    filterCarsCapacity,
     filterCategory,
     setFilterCategory,
     filterCapacity,
@@ -20,62 +20,78 @@ export default function AllCarsPage() {
     setFilterPrice
   } = useFilter(cars)
 
+  // Filtro de los coches por categoría y capacidad
+  const filteredCars = useMemo(() => {
+    return cars.filter((car) => {
+      return (
+        filterPrice >= car.price &&
+        (filterCategory.length === 0 ||
+          filterCategory.includes(car.category)) &&
+        (filterCapacity.length === 0 || filterCapacity.includes(car.capacity))
+      )
+    })
+  }, [cars, filterPrice, filterCategory, filterCapacity])
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
   // Controladores de eventos para los filtros
 
-  const handleFilterCategory = (e) => {
-    const filterName = e.target.name ? e.target.name : 'all'
+  const handleFilterCategory = useCallback(
+    (e) => {
+      const filterName = e.target.name || 'all'
+      setFilterCategory((prev) =>
+        prev.includes(filterName)
+          ? prev.filter((item) => item !== filterName)
+          : [...prev, filterName]
+      )
+    },
+    [setFilterCategory]
+  )
 
-    if (filterCategory.includes(filterName)) {
-      setFilterCategory(filterCategory.filter((item) => item !== filterName))
-    } else {
-      setFilterCategory((prevState) => [...prevState, filterName])
-    }
-  }
+  const handleFilterCapacity = useCallback(
+    (e) => {
+      const filterName = e.target.name || 'all'
+      setFilterCapacity((prev) =>
+        prev.includes(filterName)
+          ? prev.filter((item) => item !== filterName)
+          : [...prev, filterName]
+      )
+    },
+    [setFilterCapacity]
+  )
 
-  const handleFilterCapacity = (e) => {
-    const filterName = e.target.name ? e.target.name : 'all'
-
-    if (filterCapacity.includes(filterName)) {
-      setFilterCapacity(filterCapacity.filter((item) => item !== filterName))
-    } else {
-      setFilterCapacity((prevState) => [...prevState, filterName])
-    }
-  }
-
-  const handleFilterPrice = (e) => {
-    setFilterPrice(e.target.value)
-  }
+  const handleFilterPrice = useCallback(
+    (e) => {
+      setFilterPrice(e.target.value)
+    },
+    [setFilterPrice]
+  )
 
   return (
     <section className='bg-gray-100 flex'>
-      <section className='bg-white w-[25%] px-5 py-7 flex flex-col gap-10'>
-        <FilterType
-          data={typeCars}
-          actionFilterCategory={handleFilterCategory}
-        />
-        <FilterCapacity
-          data={capacityCars}
-          actionFilterCapacity={handleFilterCapacity}
-        />
-        <FilterPrice
-          price={filterPrice}
-          actionFilterPrice={handleFilterPrice}
-        />
+      <section className='bg-white w-[300px] px-5 py-7 flex flex-col gap-10'>
+        <Suspense fallback={<p>Loading...</p>}>
+          <FilterType
+            data={typeCars}
+            actionFilterCategory={handleFilterCategory}
+          />
+          <FilterCapacity
+            data={capacityCars}
+            actionFilterCapacity={handleFilterCapacity}
+          />
+          <FilterPrice
+            price={filterPrice}
+            actionFilterPrice={handleFilterPrice}
+          />
+        </Suspense>
       </section>
-      <Routes>
-        <Route
-          index
-          element={
-            <AllCars
-              cars={filterCapacity.length > 0 ? filterCarsCapacity : filterCars}
-            />
-          }
-        />
-      </Routes>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Routes>
+          <Route index element={<AllCars cars={filteredCars} />} />
+        </Routes>
+      </Suspense>
       <Outlet />
     </section>
   )
