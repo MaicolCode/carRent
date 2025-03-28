@@ -7,6 +7,7 @@ export function FilterProvider({ children }) {
   const [filterCategory, setFilterCategory] = useState([])
   const [filterCapacity, setFilterCapacity] = useState([])
   const [filterPrice, setFilterPrice] = useState(100)
+
   return (
     <FilterContext.Provider
       value={{
