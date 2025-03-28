@@ -1,4 +1,4 @@
-export function FilterPrice({ price, actionFilterPrice }) {
+export default function FilterPrice({ price, actionFilterPrice }) {
   return (
     <div className='flex flex-col gap-5'>
       <span className='text-[10px] tracking-[2px] text-slate-400 font-medium'>
