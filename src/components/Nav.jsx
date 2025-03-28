@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
 import { FilterIcon, SearchIcon } from '../icons/MenuIcons'
+import { memo } from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
-export default function Nav() {
+// eslint-disable-next-line react/display-name
+const Nav = memo(() => {
   return (
     <nav className='border h-[100px]'>
       <ul className='flex items-center justify-between h-full px-6'>
@@ -24,20 +27,27 @@ export default function Nav() {
           </div>
         </li>
         <li className='flex items-center gap-5'>
-          <a href='' className='rounded-full border p-2'>
-            <img src='heart.png' alt='' width={20} />
+          <a href='#' className='rounded-full border p-2'>
+            <LazyLoadImage src='heart.png' alt='' width={20} height={20} />
           </a>
-          <a href='' className='rounded-full border p-2'>
-            <img src='notification.png' alt='' width={20} />
+          <a href='#' className='rounded-full border p-2'>
+            <LazyLoadImage
+              src='notification.png'
+              alt=''
+              width={20}
+              height={20}
+            />
           </a>
-          <a href='' className='rounded-full border p-2'>
-            <img src='setting-2.png' alt='' width={20} />
+          <a href='#' className='rounded-full border p-2'>
+            <LazyLoadImage src='setting-2.png' alt='' width={20} height={20} />
           </a>
-          <a href='' className='rounded-full'>
-            <img src='Profil.png' alt='' width={40} height={40} />
+          <a href='#' className='rounded-full'>
+            <LazyLoadImage src='Profil.png' alt='' width={40} height={40} />
           </a>
         </li>
       </ul>
     </nav>
   )
-}
+})
+
+export default Nav
