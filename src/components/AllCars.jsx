@@ -1,19 +1,12 @@
-import { useNavigate } from 'react-router-dom'
+
 import { ArrowRight, Arrows } from '../icons/MenuIcons'
-import { lazy, memo, Suspense, useCallback } from 'react'
+import { lazy, memo, Suspense } from 'react'
+import { useCar } from '../hooks/useCar'
 const CardCarPresentation = lazy(() => import('./CardCar'))
 
 // eslint-disable-next-line react/display-name
 const AllCars = memo(({ cars }) => {
-  const navigate = useNavigate()
-  const handleClick = useCallback(
-    (id) => {
-      navigate(`${id}`, {
-        state: { car: cars.find((car) => car.id === id) }
-      })
-    },
-    [navigate, cars]
-  )
+  const { navigateToCar } = useCar()
 
   return (
     <Suspense fallback={<h1>Loading...</h1>}>
@@ -32,7 +25,7 @@ const AllCars = memo(({ cars }) => {
                 <CarPresetation
                   key={car.id}
                   car={car}
-                  actionClick={handleClick}
+                  actionClick={navigateToCar}
                 />
               )
             })}
