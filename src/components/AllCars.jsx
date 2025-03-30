@@ -17,7 +17,7 @@ const AllCars = memo(({ cars }) => {
 
   return (
     <Suspense fallback={<h1>Loading...</h1>}>
-      <section className='w-[75%] p-8'>
+      <section className='w-full p-8 '>
         <section className='relative flex justify-between items-center gap-10 w-full'>
           <CardAgend title='Pick - Up' primary='#3563E9' secondary='#3563E9' />
           <button className='absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[#3563E9] w-[55px] h-[55px] flex justify-center items-center rounded-lg hover:bg-opacity-90 transition-all duration-500 ease-in-out shadow-slate-400 shadow-[0_0_10px_2px]'>
@@ -26,7 +26,7 @@ const AllCars = memo(({ cars }) => {
           <CardAgend title='Drop - Off' primary='#54A6FF' secondary='#54A6FF' />
         </section>
         {cars.length > 0 ? (
-          <section className='grid grid-cols-3 gap-6 mt-10 mb-10'>
+          <section className='grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 mb-10 place-items-center'>
             {cars.map((car) => {
               return (
                 <CarPresetation
