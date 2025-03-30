@@ -70,7 +70,7 @@ export default function AllCarsPage() {
   )
 
   return (
-    <section className='bg-gray-100 flex'>
+    <section className='bg-gray-100 flex md:flex-row flex-col'>
       <section className='hidden md:block bg-white w-[300px] px-5 py-7 flex-col gap-10'>
         <Suspense fallback={<p>Loading...</p>}>
           <FilterType
