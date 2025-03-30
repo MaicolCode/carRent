@@ -32,7 +32,7 @@ export default function RentCarPage() {
   })
 
   return (
-    <section className='w-full h-full p-8 flex gap-7 border bg-gray-100 bg-opacity-60'>
+    <section className='w-full h-full p-4 md:p-8 flex flex-col-reverse md:flex-row gap-7 border bg-gray-100 bg-opacity-60'>
       <form className='w-full flex flex-col gap-7'>
         <article className='bg-white p-6 rounded-md text-xs text-slate-400'>
           <div className='w-full'>
@@ -43,7 +43,7 @@ export default function RentCarPage() {
             </div>
           </div>
 
-          <div className='grid grid-cols-2 gap-7 mt-5'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-7 mt-5'>
             <div className='flex flex-col gap-3'>
               <label htmlFor='' className='font-bold text-black text-sm'>
                 Name
@@ -106,7 +106,7 @@ export default function RentCarPage() {
             <h2 className='font-medium text-sm'>Pick - Up</h2>
           </div>
 
-          <div className='grid grid-cols-2 gap-7 mt-5'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-7 mt-5'>
             <div className='flex flex-col gap-3'>
               <label htmlFor='' className='font-bold text-black text-sm'>
                 Locations
@@ -149,7 +149,7 @@ export default function RentCarPage() {
             <h2 className='font-medium text-sm'>Drop - Off</h2>
           </div>
 
-          <div className='grid grid-cols-2 gap-7 mt-5'>
+          <div className='grid grid-cols-1  md:grid-cols-2 gap-7 mt-5'>
             <div className='flex flex-col gap-3'>
               <label htmlFor='' className='font-bold text-black text-sm'>
                 Locations
@@ -204,7 +204,7 @@ export default function RentCarPage() {
               </div>
               <VisaMasterCard />
             </div>
-            <div className='grid grid-cols-2 gap-7 mt-5'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-7 mt-5'>
               <div className='flex flex-col gap-3'>
                 <label htmlFor='' className='font-bold text-black text-sm'>
                   Card Number
@@ -318,7 +318,7 @@ export default function RentCarPage() {
           >
             Rent Now
           </button>
-          <div className='flex flex-col gap-2'>
+          <div className='flex flex-col gap-2 mt-10 md:mt-0'>
             <SecurePayment />
             <span className='text-sm text-black font-semibold'>
               All your data are safe
@@ -337,7 +337,7 @@ export default function RentCarPage() {
 
 export function InfoCarRent({ car, layers }) {
   return (
-    <section className='w-[55%] h-[490px] p-5 bg-white text-sm  flex flex-col gap-4 text-slate-400 rounded-md'>
+    <section className='w-full md:w-[55%] h-[490px] p-5 bg-white text-sm  flex flex-col gap-4 text-slate-400 rounded-md'>
       <div>
         <h3 className='text-lg font-bold text-black '>Rental Summary</h3>
         <p className='mt-1 text-xs'>
