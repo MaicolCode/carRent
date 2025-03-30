@@ -82,7 +82,7 @@ export function CarInfo({ car, layers }) {
             <span className='font-semibold'>{car.gas}</span>
           </div>
         </div>
-        <div className='flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 md:pt-10'>
+        <div className='flex flex-col sm:flex-row justify-between md:items-center gap-4 pt-6 md:pt-10'>
           <div className='flex flex-col gap-1 text-slate-500'>
             <span className='text-sm font-semibold'>
               <strong className='text-xl md:text-3xl text-slate-800'>
