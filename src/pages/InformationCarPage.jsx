@@ -83,7 +83,7 @@ function PopularCars() {
   }, [])
 
   return (
-    <div className='grid grid-cols-3 gap-5 mt-7 mb-10'>
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-5 mt-7 mb-10 place-items-center'>
       {cars
         .slice(-3)
         .reverse()
@@ -118,7 +118,7 @@ function RecomendationCar() {
   }, [])
 
   return (
-    <div className='grid grid-cols-3 gap-5 mt-7 mb-10'>
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-5 mt-7 mb-10 place-items-center'>
       {cars.slice(0, 3).map((car) => {
         return (
           <CardCarPresentation
