@@ -4,6 +4,7 @@ import { CarInfo } from '../components/CarInfo'
 import { CarInfoComments } from '../components/CarInfoComments'
 import CardCarPresentation from '../components/CardCar'
 import { useCar } from '../hooks/useCar'
+import { Link } from 'react-router-dom'
 
 export default function InformationCarPage() {
   const {car} = useCar()
@@ -26,12 +27,19 @@ export default function InformationCarPage() {
       <CarInfoComments car={car} layers={layers} />
 
       <div>
-        <h2 className='text-sm text-gray-400 px-6 font-semibold'>Popular Cars</h2>
+      <div className='flex justify-between items-center gap-7 px-6 text-sm font-medium'>
+          <span href='' className='text-slate-400'>
+            Popular Car
+          </span>
+          <Link to={'/cars'} className='text-[#3563E9]'>
+            View All
+          </Link>
+        </div>
         <PopularCars />
       </div>
 
       <div>
-        <h2 className='text-sm text-gray-400 px-6 font-semibold'>Recomendation Car</h2>
+        <h2 className='text-sm text-slate-400 px-6 font-semibold'>Recomendation Car</h2>
         <RecomendationCar />
       </div>
     </section>
