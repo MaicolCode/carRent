@@ -69,21 +69,21 @@ const CardAgend = memo(function CardAgend({ title, primary, secondary }) {
       <section className='flex gap-1 md:gap-3 mt-4'>
         <div className='flex flex-col gap-2'>
           <h3 className='font-bold text-sm'>Locations</h3>
-          <button className='flex w-[100px] justify-between'>
+          <button className='flex w-[95px] md:w-[100px] justify-between'>
             <span className='text-[10px] text-gray-400'>Select your city</span>
             <ArrowRight />
           </button>
         </div>
         <div className='flex flex-col gap-2 border-x border-gray-200 px-3'>
           <h3 className='font-bold text-sm'>Date</h3>
-          <button className='flex w-[100px] justify-between'>
+          <button className='flex w-[95px] md:w-[100px] justify-between'>
             <span className='text-[10px] text-gray-400'>Select your date</span>
             <ArrowRight />
           </button>
         </div>
         <div className='flex flex-col gap-2'>
           <h3 className='font-bold text-sm'>Time</h3>
-          <button className='flex w-[100px] justify-between'>
+          <button className='flex w-[95px] md:w-[100px] justify-between'>
             <span className='text-[10px] text-gray-400'>Select your time</span>
             <ArrowRight />
           </button>
