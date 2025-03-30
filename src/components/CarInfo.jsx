@@ -10,7 +10,7 @@ export function CarInfo({ car, layers }) {
   };
 
   return (
-    <section className='flex flex-col md:flex-row gap-8 w-full px-4 md:px-6'>
+    <section className='flex flex-col md:flex-row gap-8 w-full px-0 md:px-6'>
       <article className='w-full md:w-auto'>
         <div className='relative w-full md:w-[450px] h-[250px] md:h-[320px] rounded-lg px-4 md:px-[20px] py-5 bg-[#3563E9]'>
           <h2 className='text-xl md:text-[27px] text-white font-medium w-full md:w-[90%]'>
