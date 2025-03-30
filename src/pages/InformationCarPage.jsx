@@ -39,7 +39,7 @@ export default function InformationCarPage() {
   if (!car) return <h1>La informacion del coche esta siendo cargada...</h1>
 
   return (
-    <section className='w-[75%] h-full p-8 flex flex-col gap-8'>
+    <section className='w-full h-full p-8 flex flex-col gap-8'>
       <CarInfo car={car} layers={layers} />
       <CarInfoComments car={car} layers={layers} />
 
