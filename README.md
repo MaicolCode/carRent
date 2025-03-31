@@ -79,6 +79,5 @@ El proyecto utiliza:
 4. Push a la rama
 5. Crea una nueva Pull Request
 
-## Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo LICENSE para detalles
+
